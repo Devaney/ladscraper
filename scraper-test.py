@@ -7,6 +7,7 @@ class LadSpidyTest(CrawlSpider):
     start_urls = (
         'http://www.memset.com/',
     )
+
     rules = (
         Rule(LinkExtractor(canonicalize=True, unique=True), callback="parse_obj", follow=True),
     )
@@ -14,12 +15,11 @@ class LadSpidyTest(CrawlSpider):
     def parse_obj(self, response):
         extractor = LinkExtractor(allow=self.allowed_domains)
         links = extractor.extract_links(response)
-        url_list = []
         for link in links:
-            #print link.url
-            #url_list.append(link.url)
-            if link.url not in url_list:
-                url_list.append(link.url)
+            print link.url
 
-        unique_url_list = set(url_list)
-        print unique_url_list
+        page = response.url.split("/")[-2]
+        filename = 'quotes-%s.html' % page
+        with open(filename, 'wb') as f:
+            f.write(response.body)
+        self.log('Saved file %s' % filename)
