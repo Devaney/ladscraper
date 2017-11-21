@@ -25,5 +25,6 @@ class LadSpidyTest(CrawlSpider):
 
 def completeList():
     url_set = set(url_list)
-    print len(url_list)
-    print len(url_set)
+    for i in url_set:
+        print i
+        #audit call 
