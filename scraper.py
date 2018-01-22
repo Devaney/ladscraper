@@ -25,6 +25,10 @@ class LadSpidyTest(CrawlSpider):
 
 def completeList():
     url_set = set(url_list)
+    myfile = open('results.txt', 'w')
     for i in url_set:
+        myfile.write(url_set)
+        myfile.write('\n')
         print i
-        #audit call 
+        #audit call
+    myfile.close() 
